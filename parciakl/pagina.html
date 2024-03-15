@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <title>Gráfica de Puntos</title>
+  </head>
+  <body>
+    <header>
+      <div class="caja">
+        <nav>
+          <ul class="menu">
+            <li><a href="inicio.html">Inicio</a></li>
+            <li><a href="pagina.html">Grafos</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <h1>MUESTRA DE GRAFOS</h1>
+    <input type="text" placeholder="Name" width="10rem" id="inputNodeName" />
+    <button id="graficarBtn">Añadir Nodo</button>
+    <button id="generarEnlacesBtn">Generar Relaciones</button>
+    <div id="grafica"></div>
+    <div class="center">
+      <div>
+        <button id="buttonAdd" disabled>Add</button>
+        <ul id="puntosLista"></ul>
+      </div>
+      <div>
+        <select id="selectNodes"></select>
+        <button id="deleteNode" onClick="">Delete Node</button>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
