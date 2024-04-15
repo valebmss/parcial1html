@@ -2,26 +2,14 @@
 let addQueue = [];
 let relationsList = [];
 
-let styles = {
-  input: "bg-slate-100 mx-5 py-1 px-2 text-center",
-  deletebtn: "bg-red-400 py-1 px-3 rounded-md hover:bg-red-500 ",
-  select: "w-40 bg-slate-200 p-1 rounded-md hover:bg-slate-300",
-};
-
-/* TODO:
-    1. ADD NODE function  
-    2. EDIT NODE function
-    3. DELETE NODE function 
-    4. Draw edges
-*/
-
-let $canvas = document.getElementById("grafica");
-
 const nodes = new vis.DataSet();
 const edges = new vis.DataSet();
 const data = { nodes, edges };
 const options = {
   autoResize: true,
+  nodes:{
+    shape:"circle",
+  },
   interaction: { selectable: true },
   edges: {
     arrows: {
@@ -65,7 +53,14 @@ function ActiveButton(action, value = true) {
     document.querySelector("button[action='deleteRelation']").disabled = !value;
 }
 
-
+function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 
 function AddNode(idparam = undefined) {
   let $nodeNameInput = document.querySelector("input[name='node-name']");
@@ -73,11 +68,14 @@ function AddNode(idparam = undefined) {
   if (!id) return alert("Agrega un valor al nombre");
 
   try {
+    const color = getRandomColor(); // Generar color aleatorio
     nodes.add({
       id,
       label: id.toString(),
-      color: "#5FDABD",
+      color, // Asignar color aleatorio al nodo
       font: { color: "white" },
+      size: { width: 100, height: 10 },
+
     });
 
     relationsList.forEach((item) => item.push(undefined));
@@ -153,6 +151,18 @@ function DeleteNode(id = undefined) {
   UpdateSelects();
 }
 
+function ResetGraph() {
+  // Limpiar las listas y conjuntos de datos
+  addQueue = [];
+  relationsList = [];
+  nodes.clear();
+  edges.clear();
+  ActiveButton("edit", false);
+  ActiveButton("delete", false);
+  ActiveButton("addRelation", false);
+  showDeleteNodeModal();
+}
+
 
 function AddRelation() {
   let from = document.getElementById("from-relation").value;
@@ -167,6 +177,12 @@ function AddRelation() {
   let indexInQueueto = addQueue.indexOf(to);
 
   relationsList[indexInQueueFrom][indexInQueueto] = value;
+}
+
+function GenerateData() {
+
+alert("PERDON PROFE...Esta funcion aun esta en mantenimiento")
+
 }
 
 function DeleteRelation(){
@@ -215,13 +231,11 @@ function UpdateSelects() {
 
 
 
-// [add, edit, delete, addRelation,delRelation]
 let visible = [0, 0, 0, 0, 0 ];
 let actionsbuttons = document.querySelector(".actions").children;
 
 function showAddNodeModal() {
   let actions = document.querySelector(".modals").children;
-  //visible
   if (visible[0]) {
     actions[0].classList.add("hidden");
     visible = [0, 0, 0, 0 ];
